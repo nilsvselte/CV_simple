@@ -1,0 +1,58 @@
+{
+  "title": "Building This Website",
+  "subtitle": "Personal Update",
+  "date": "June 2025",
+  "readingTime": "4 minute read",
+  "headingLinks": [
+    {
+      "label": "GitHub Repo",
+      "href": "https://github.com/nilsvselte/CV_simple",
+      "icon": "github"
+    },
+    {
+      "label": "My LinkedIn",
+      "href": "https://www.linkedin.com/in/nils-selte/",
+      "icon": "LinkedIn"
+    }
+  ],
+  "intro": [
+    "I wanted a portfolio site that read more like a research notebook than a standard landing page. It is made with the intention of being very low maintenance and easily updated. The layout is inspired by Physical Intelligence's",
+    "Below is a breakdown of how the site works."
+  ],
+  "highlight": {
+    "label": "Key idea behind the project",
+    "text": "The entire site is data-driven json. All text on the page is located in json files and is thus easily editable and can add support multiple languages."
+  },
+  "sections": [
+    {
+      "heading": "Typed content pipeline",
+      "paragraphs": [
+        "All timeline posts are in JSON under in content.json and each post is under /content/posts. I wrote a small resolver that can inject values from environment variables so that it can be deployed easily.",
+        "Each post is parsed via a tiny lib/posts helper. When the slug is requested, Next.js statically generates the page with metadata pulled from the JSON file."
+      ],
+      "bullets": [
+        "TypeScript is used to enforce shape.",
+        "Adding heading links lets each post point to repos or demos without editing React code."
+      ]
+    },
+    {
+      "heading": "Styling like a paper",
+      "paragraphs": [
+        "Tailwind handles the layout, but most of the polish comes from a couple of utilities that mimic Physical Intelligence's card styles. They are really cool",
+        "Reusable button styles keep the heading link buttons, CTA links, and timeline cards uniform."
+      ]
+    },
+    {
+      "heading": "Deployment and workflow",
+      "paragraphs": [
+        "It runs as a Next.js App Router project with zero backend dependencies."
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Have feedback?",
+    "body": "If there's something you'd like to see on the site or want to collaborate, I'd love to hear from you.",
+    "actionLabel": "Email me",
+    "actionHref": "mailto:nilsvselte@gmail.com"
+  }
+}

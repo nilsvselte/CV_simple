@@ -1,0 +1,55 @@
+{
+  "title": "Real-Time Chunking for Human-Scale Memory",
+  "subtitle": "Research Field Note",
+  "date": "January 2025",
+  "readingTime": "6 minute read",
+  "intro": [
+    "When we built the first prototype of Digital Mind, the breakthrough moment came when we stopped thinking about notes as discrete documents and started thinking about them as fluid states. Screenshots, snippets from podcasts, stray quotes, and sensor readings were all treated as equal citizens, captured in real time and chunked into coherent memories within seconds.",
+    "This note explains the operating system behind that feeling. It's an architecture we've been experimenting with since the Atlantic crossing in 2022, when days were defined by tasks, weather windows, and the thin line between signal and noise."
+  ],
+  "highlight": {
+    "label": "Why this matters",
+    "text": "Chunking on capture collapses the lag between experience and recall. Instead of organizing after the fact, the timeline itself becomes structured — every item is instantly queryable, referenceable, and ready for future agents."
+  },
+  "sections": [
+    {
+      "heading": "A capture-first pipeline",
+      "paragraphs": [
+        "Everything starts with a capture daemon that lives on-device. Keyboard shortcut, phone share sheet, or watch complication — they all feed the same queue. Each item is stamped with time, location, and capture primitive (text, screen, audio, or sensor).",
+        "Within 300 ms we run a local classifier that routes the item into either a \"fast lane\" (simple append) or a \"chunk lane\" (needs summarization). Only the chunk lane invokes the GPU, which keeps the whole loop battery-friendly."
+      ],
+      "bullets": [
+        "Fast lane: meeting notes, quick todos, GPS breadcrumbs.",
+        "Chunk lane: screenshots, stitched PDFs, multi-sentence dictations."
+      ]
+    },
+    {
+      "heading": "Memory windows instead of folders",
+      "paragraphs": [
+        "Inspired by the ships log we kept while sailing across the Atlantic, the system groups captures into rolling windows: 90 minutes by default, but dynamic when GPS velocity or calendar context spikes.",
+        "Each window is chunked into a paragraph-level summary, tagged with entities, and linked back to raw captures. It's the same interaction pattern we use on this site: a timeline entry, a short summary, and a link into a deeper post."
+      ]
+    },
+    {
+      "heading": "Interfaces that stay out of the way",
+      "paragraphs": [
+        "The UI borrows from Physical Intelligence's research posts — serif headline, generous margins, and sections that read more like letters than blog posts. It gives breathing room to the text and lets one or two key highlights do the heavy lifting.",
+        "In practice it means that every capture can graduate into a public artifact without rewriting. The JSON that powers this page is the exact same data structure the internal tools use."
+      ],
+      "bullets": [
+        "Typography stays calm: 18px body text, 32px headings, muted rule separators.",
+        "No hero images. Just words, a highlight block, and a call to action."
+      ]
+    }
+  ],
+  "quote": {
+    "text": "A good memory stack doesn’t wait for you to organize it — it organizes itself as you live.",
+    "attribution": "Crossing logbook, mid-Atlantic, day 27"
+  },
+  "cta": {
+    "title": "Build with me",
+    "body": "If you're experimenting with on-device LLMs, context compressors, or memory vaults, I'm looking for collaborators.",
+    "actionLabel": "Email Nils",
+    "actionHref": "mailto:nilsvselte@gmail.com"
+  }
+}

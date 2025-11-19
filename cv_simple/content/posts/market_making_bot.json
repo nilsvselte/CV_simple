@@ -1,0 +1,48 @@
+{
+  "title": "Mini-Market-Making Bot",
+  "subtitle": "Learning how market makers make money",
+  "date": "August 2025",
+  "readingTime": "2 minute read",
+  "headingLinks": [
+    {
+      "label": "Backend Repo",
+      "href": "https://github.com/nilsvselte/mm_bot_public",
+      "icon": "github"
+    },
+    {
+      "label": "Frontend Repo",
+      "href": "https://github.com/nilsvselte/mm-bot-frontend",
+      "icon": "github"
+    }
+  ],
+  "intro": [
+    "I built this bot to understand how market makers operate and it's trading BTC/USD. For market data it uses Binance's WebSocket, simulates quote posting, and streams live P&L through FastAPI.",
+    "Tech: Docker, FastAPI, SQLAlchemy, Python 3.11"
+  ],
+  "sections": [
+    {
+      "heading": "Two containers with shared storage",
+      "paragraphs": [
+        "The system is split into a bot container and an API container. The bot handles data feeds, strategy, and simulation. The API serves endpoints. They share a SQLite volume, so the API can restart without disrupting the trading loop."
+      ]
+    },
+    {
+      "heading": "Inside the simulator",
+      "paragraphs": [
+        "The order book lives in memory as bid/ask dictionaries. The execution engine reconciles stealth fills and partial fills against external best bid/ask. Trades get unique IDs, and I used Decimal for math, storing as FLOAT for the MVP."
+      ]
+    },
+    {
+      "heading": "From laptop to cloud",
+      "paragraphs": [
+        "Local dev is docker compose up. For Fly.io, I added a fly.toml and multi-stage Dockerfile. The VM runs both containers with a 1 GB volume for the database. It assumes no latency for trading sim, but could be extended with a more robust engine."
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Wanna get in touch?",
+    "body": "I'm always open to discussing anything related to what I'm building.",
+    "actionLabel": "Email Nils",
+    "actionHref": "mailto:nilsvselte@gmail.com"
+  }
+}

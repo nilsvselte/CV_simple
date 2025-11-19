@@ -1,0 +1,37 @@
+{
+  "title": "Doggo",
+  "subtitle": "Learning how to build Next.js apps",
+  "date": "January 2023",
+  "readingTime": "1 minute read",
+  "headingLinks": [
+    {
+      "label": "Repo",
+      "href": "https://github.com/nilsvselte/woof",
+      "icon": "github"
+    },
+    {
+      "label": "Website",
+      "href": "https://woof-eight.vercel.app/",
+      "icon": "dog"
+    }
+  ],
+  "intro": [
+    "This is my very first Next.js application and it thought me a lot. It used at the time experimental App Router, server components, and Tailwind CSS for styling.",
+    "Tech: Vercel, Next.js, Tailwind CSS, TypeScript, Serverless Functions"
+  ],
+  "sections": [
+    {
+      "heading": "",
+      "paragraphs": [
+        "I built this website in order to get a job at Tendro, and it thought me so much about modern web development.",
+        "The website fetches pictures/videos of cute dogs from an external API and displays them. I tried to make the website cute as well."
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Wanna get in touch?",
+    "body": "I'm always open to discussing anything related to what I'm building.",
+    "actionLabel": "Email Nils",
+    "actionHref": "mailto:nilsvselte@gmail.com"
+  }
+}

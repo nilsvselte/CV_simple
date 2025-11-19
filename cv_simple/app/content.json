@@ -1,0 +1,159 @@
+{
+  "site": {
+    "name": "Nils Valseth Selte",
+    "hero": {
+      "paragraphs": [
+        "Software is eating the world - Marc Andreessen",
+        "Industrial Economics & Technology Management student (NTNU '27) specializing in Artificial Intelligence and Finance, currently on exchange at UC Berkeley.",
+        "I like building things people find value in, talking to people about how software can help them and collaborating with small ambitious teams."
+      ]
+    },
+    "footer": "oslo | ntnu | berkeley ⛵"
+  },
+  "navigation": {
+    "links": [
+      { "label": "Home", "href": "#top" },
+      { "label": "Updates", "href": "#updates" },
+      { "label": "Contact", "hrefEnv": "NAV_CONTACT_LINK", "external": true }
+    ]
+  },
+  "timeline": {
+    "sectionId": "updates",
+    "items": [
+      {
+        "href": "/post/this_website",
+        "postSlug": "this_website",
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Launching my personal website"
+          }
+        ],
+        "description": "Built this website as a blog, inspired by Physical Intelligence's website.",
+        "date": "November 2025",
+        "badge": "Project",
+        "variant": "plain"
+      },
+      {
+        "href": "/post/digital_mind",
+        "hrefEnv": "PAGE_URL",
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Cortex AI"
+          }
+        ],
+        "description": "Something very cool and useful is coming 🤫.",
+        "date": "Ongoing",
+        "badge": "Stealth Project",
+        "variant": "primary"
+      },
+      {
+        "href": "/post/market_making_bot",
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Building a market making bot from scratch"
+          }
+        ],
+        "description": "Full stack trading bot that streams order book data, simulates the book, quotes with a fixed spread strategy, and records trades in SQLite with a small REST and SSE API on top.",
+        "date": "August 2025",
+        "badge": "Project",
+        "variant": "muted"
+      },
+      {
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Joining Zerolytics as a modeling intern"
+          }
+        ],
+        "description": "Working on climate adjusted valuation models, turning a manual analyst workflow into a Python based pipeline that scaled to hundreds of companies.",
+        "date": "Summer 2025",
+        "badge": "Experience",
+        "variant": "plain"
+      },
+      {
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Spending a year at UC Berkeley"
+          }
+        ],
+        "description": "Exchange year focused on Deep Neural Networks and Optimization, plus a course project on in context learning and how transformer models pick up new tasks from examples.",
+        "date": "2025",
+        "badge": "Education",
+        "variant": "plain"
+      },
+      {
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Helping build Tendro in its early days"
+          }
+        ],
+        "description": "Blending product and engineering: analytics for usage and KPIs, competitor and pricing work used in fundraising, and pieces of the production codebase for our first enterprise customers.",
+        "date": "June 2023 – August 2024",
+        "badge": "Experience",
+        "variant": "plain"
+      },
+      {
+        "href": "/post/doggo",
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Doggo: My first full stack application in Next.js"
+          }
+        ],
+        "description": "Built a small website that shows pictures of cute dogs",
+        "date": "January 2023",
+        "badge": "Project",
+        "variant": "plain"
+      },
+      {
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Starting the MSc at NTNU"
+          }
+        ],
+        "description": "Industrial Economics & Technology Management with an AI and Finance track.",
+        "date": "2022-2027",
+        "badge": "Education",
+        "variant": "muted"
+      },
+      {
+        "href": "",
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Crossing the Atlantic on a 33 ft sailing boat"
+          }
+        ],
+        "description": "Six months living on a 1982 sailboat with a friend, sailing from the Caribbean to Florida and back across the Atlantic to Europe. A good test of risk, planning, and not losing your mind at sea.",
+        "date": "2022",
+        "badge": "Personal",
+        "variant": "muted"
+      }
+    ]
+  },
+  "team": {
+    "heading": "",
+    "members": [""],
+    "cta": {
+      "prefix": "If you want to chat about AI, finance, sailing or building things, please",
+      "linkText": "get in touch",
+      "linkHrefEnv": "NAV_CONTACT_LINK",
+      "suffix": "."
+    }
+  },
+  "investors": {
+    "heading": "Expanded skillset:",
+    "body": {
+      "prefix": "Comfortable with linear algebra, probability, optimization, financial modeling, and modern software tooling in Python, PyTorch, pandas, FastAPI, Next.js, SQL, Docker, Linux, Git, and Zsh, plus",
+      "linkText": "a mix of student roles and case competitions",
+      "linkHref": "https://www.linkedin.com/in/nils-selte/?locale=en_US",
+      "suffix": "including work in the Abakus Academic Committee, a START NTNU case win, and side projects ranging from a small apparel venture in high school to the Atlantic crossing."
+    }
+  }
+}
