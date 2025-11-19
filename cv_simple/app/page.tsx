@@ -124,9 +124,14 @@ export default function Home() {
                             {renderTitleParts(titleParts)}
                           </div>
                         </div>
-                        <time className="text-[11px] text-neutral-500">
-                          {date}
-                        </time>
+                        <div className="flex items-center gap-1 text-[11px] text-neutral-500">
+                          <time>{date}</time>
+                          {hasLink && (
+                            <span className="relative -top-0.5 text-sm font-semibold leading-none text-neutral-400 transition-colors group-hover:text-neutral-700">
+                              ↗
+                            </span>
+                          )}
+                        </div>
                       </div>
                       <p className="mt-2 text-[12px] text-neutral-600">
                         {description}
