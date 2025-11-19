@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background" id="top">
       <main className="w-full max-w-3xl px-4 pr-6 py-8 text-sm text-foreground sm:px-6 md:px-8">
-        <header className="flex flex-col gap-4 border-b border-black/10 pb-6 md:flex-row md:items-center md:justify-between">
+        <header className="ml-4 flex flex-col gap-4 border-b border-black/10 pb-6 md:flex-row md:items-center md:justify-between">
           <a
             href="#top"
             className="text-3xl font-serif tracking-tight hover:underline"
@@ -70,7 +70,7 @@ export default function Home() {
           </nav>
         </header>
 
-        <section className="mt-8 space-y-4 text-sm leading-relaxed">
+        <section className="ml-4 mt-8 space-y-4 text-sm leading-relaxed">
           {site.hero.paragraphs.map((paragraph, index) => (
             <p key={`hero-${index}`}>{paragraph}</p>
           ))}
@@ -170,7 +170,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="team" className="mt-10">
+        <section id="team" className="ml-4 mt-10">
           <h2 className="text-base font-semibold uppercase tracking-[0.3em]">
             {team.heading}
           </h2>
@@ -195,7 +195,7 @@ export default function Home() {
           </p>
         </section>
 
-        <section id="investors" className="mt-10 space-y-3">
+        <section id="investors" className="ml-4 mt-10 space-y-3">
           <h2 className="text-base font-semibold uppercase tracking-[0.3em]">
             {investors.heading}
           </h2>
@@ -213,7 +213,7 @@ export default function Home() {
           </p>
         </section>
 
-        <footer className="mt-12 border-t border-black/10 pt-6 text-xs uppercase tracking-[0.3em] text-neutral-500">
+        <footer className="ml-4 mt-12 border-t border-black/10 pt-6 text-xs uppercase tracking-[0.3em] text-neutral-500">
           {site.footer}
         </footer>
       </main>
