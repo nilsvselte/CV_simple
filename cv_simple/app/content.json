@@ -21,6 +21,20 @@
     "sectionId": "updates",
     "items": [
       {
+        "href": "/post/norgesgruppen-shelf-system",
+        "postSlug": "norgesgruppen-shelf-system",
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "Designing a compact grocery shelf pipeline"
+          }
+        ],
+        "description": "A paper-style write-up of the NorgesGruppen Data challenge entry: detect products, classify the crops, and only rerank the ambiguous cases within a 420 MB runtime limit.",
+        "date": "March 2026",
+        "badge": "Competition",
+        "variant": "plain"
+      },
+      {
         "href": "/post/this_website",
         "postSlug": "this_website",
         "titleParts": [
