@@ -12,7 +12,6 @@ const colors = {
   yellow: "#efd073",
   gold: "#d5b76c",
   final: "#4a4337",
-  shadow: "#1c1a16",
 };
 
 const familyColors: Record<string, string> = {
@@ -238,13 +237,6 @@ export function ScoreProgressChart({
                     opacity={0.82}
                   />
                   <rect
-                    x={x - mobileBarWidth / 2 + 4}
-                    y={y + 3}
-                    width={mobileBarWidth}
-                    height={mobileInnerHeight - y}
-                    fill={colors.shadow}
-                  />
-                  <rect
                     x={x - mobileBarWidth / 2}
                     y={y}
                     width={mobileBarWidth}
@@ -372,13 +364,6 @@ export function ScoreProgressChart({
                     y1={y}
                     y2={innerHeight}
                     stroke={colors.line}
-                  />
-                  <rect
-                    x={x - 24 + 6}
-                    y={y + 4}
-                    width={48}
-                    height={innerHeight - y}
-                    fill={colors.shadow}
                   />
                   <rect
                     x={x - 24}
