@@ -1,0 +1,248 @@
+{
+  "path": "dataset/rf_valid/_annotations.coco.json",
+  "image_count": 48,
+  "annotation_count": 4631,
+  "category_count": 356,
+  "boxes_per_image": [
+    166,
+    162,
+    162,
+    161,
+    155,
+    149,
+    145,
+    144,
+    144,
+    141,
+    139,
+    135,
+    131,
+    130,
+    120,
+    118,
+    114,
+    113,
+    111,
+    109,
+    102,
+    95,
+    91,
+    90,
+    86,
+    84,
+    82,
+    81,
+    81,
+    78,
+    78,
+    77,
+    76,
+    76,
+    69,
+    66,
+    64,
+    60,
+    57,
+    57,
+    53,
+    52,
+    51,
+    50,
+    47,
+    35,
+    30,
+    14
+  ],
+  "boxes_per_image_mean": 96.47916666666667,
+  "boxes_per_image_median": 88.0,
+  "boxes_per_image_max": 166,
+  "boxes_per_image_min": 14,
+  "top_dense_images": [
+    {
+      "image_id": 353,
+      "file_name": "img_00353.jpg",
+      "box_count": 166,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "image_id": 298,
+      "file_name": "img_00298.jpg",
+      "box_count": 162,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "image_id": 321,
+      "file_name": "img_00321.jpg",
+      "box_count": 162,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "image_id": 33,
+      "file_name": "img_00033.jpeg",
+      "box_count": 161,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "image_id": 29,
+      "file_name": "img_00029.jpeg",
+      "box_count": 155,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "image_id": 268,
+      "file_name": "img_00268.jpg",
+      "box_count": 149,
+      "width": 2942,
+      "height": 2458
+    },
+    {
+      "image_id": 235,
+      "file_name": "img_00235.jpg",
+      "box_count": 145,
+      "width": 1920,
+      "height": 1440
+    },
+    {
+      "image_id": 345,
+      "file_name": "img_00345.jpg",
+      "box_count": 144,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "image_id": 380,
+      "file_name": "img_00380.jpg",
+      "box_count": 144,
+      "width": 1920,
+      "height": 1445
+    },
+    {
+      "image_id": 273,
+      "file_name": "img_00273.jpg",
+      "box_count": 141,
+      "width": 1841,
+      "height": 1536
+    },
+    {
+      "image_id": 290,
+      "file_name": "img_00290.jpg",
+      "box_count": 139,
+      "width": 1678,
+      "height": 1057
+    },
+    {
+      "image_id": 297,
+      "file_name": "img_00297.jpg",
+      "box_count": 135,
+      "width": 4032,
+      "height": 3024
+    }
+  ],
+  "top_categories": [
+    {
+      "category_id": 349,
+      "category_name": "KNEKKEBRØD SPORT+ 210G WASA",
+      "gt_count": 100
+    },
+    {
+      "category_id": 86,
+      "category_name": "HAVRE KNEKKEBRØD 300G WASA",
+      "gt_count": 91
+    },
+    {
+      "category_id": 307,
+      "category_name": "MAISKAKER OST 125G FRIGGS",
+      "gt_count": 90
+    },
+    {
+      "category_id": 100,
+      "category_name": "EVERGOOD CLASSIC FILTERMALT 250G",
+      "gt_count": 84
+    },
+    {
+      "category_id": 271,
+      "category_name": "FRUKOST KNEKKEBRØD 240G WASA",
+      "gt_count": 84
+    },
+    {
+      "category_id": 109,
+      "category_name": "KNEKKEBRØD 100 FRØ&HAVSALT 245G WASA",
+      "gt_count": 84
+    },
+    {
+      "category_id": 233,
+      "category_name": "LEKSANDS KNEKKE GODT STEKT 200G",
+      "gt_count": 74
+    },
+    {
+      "category_id": 296,
+      "category_name": "FIBER BALANCE 230G WASA",
+      "gt_count": 69
+    },
+    {
+      "category_id": 246,
+      "category_name": "HUSMAN KNEKKEBRØD 260G WASA",
+      "gt_count": 69
+    },
+    {
+      "category_id": 207,
+      "category_name": "LEKSANDS KNEKKE FIBERBIT 240G",
+      "gt_count": 68
+    },
+    {
+      "category_id": 92,
+      "category_name": "KNEKKEBRØD GODT FOR DEG 235G SIGDAL",
+      "gt_count": 66
+    },
+    {
+      "category_id": 250,
+      "category_name": "LEKSANDS KNEKKE NORMALT STEKT 200G",
+      "gt_count": 65
+    },
+    {
+      "category_id": 132,
+      "category_name": "FRUKOST FULLKORN 320G WASA",
+      "gt_count": 65
+    },
+    {
+      "category_id": 21,
+      "category_name": "KNEKKEBRØD RUNDA SESAM&HAVSALT 290G WASA",
+      "gt_count": 63
+    },
+    {
+      "category_id": 280,
+      "category_name": "RISKAKER 100G FIRST PRICE",
+      "gt_count": 62
+    },
+    {
+      "category_id": 275,
+      "category_name": "EGG FRITTGÅENDE 18STK S/M FIRST PRICE",
+      "gt_count": 59
+    },
+    {
+      "category_id": 38,
+      "category_name": "KNEKKEBRØD DIN STUND CHIA&HAVSALT 270G W",
+      "gt_count": 58
+    },
+    {
+      "category_id": 355,
+      "category_name": "unknown_product",
+      "gt_count": 54
+    },
+    {
+      "category_id": 171,
+      "category_name": "ALI ORIGINAL FILTERMALT 250G",
+      "gt_count": 54
+    },
+    {
+      "category_id": 345,
+      "category_name": "KNEKKEBRØD URTER&HAVSALT 220G SIGDAL",
+      "gt_count": 53
+    }
+  ]
+}

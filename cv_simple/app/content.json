@@ -4,7 +4,7 @@
     "hero": {
       "paragraphs": [
         "Software is eating the world - Marc Andreessen",
-        "Industrial Economics & Technology Management student (NTNU '27) specializing in Artificial Intelligence and Finance, currently on exchange at UC Berkeley.",
+        "Industrial Economics & Technology Management student (NTNU '27 Berkeley Exchange 25') specializing in Artificial Intelligence and Finance.",
         "I like building things people find value in, talking to people about how software can help them, and working with highly ambitious and motivated teams."
       ]
     },
@@ -20,6 +20,20 @@
   "timeline": {
     "sectionId": "updates",
     "items": [
+      {
+        "href": "/post/norgesgruppen-shelf-system",
+        "postSlug": "norgesgruppen-shelf-system",
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "National championship in AI"
+          }
+        ],
+        "description": "Write-up of the NorgesGruppen Data challenge.",
+        "date": "March 2026",
+        "badge": "Competition",
+        "variant": "plain"
+      },
       {
         "href": "/post/this_website",
         "postSlug": "this_website",

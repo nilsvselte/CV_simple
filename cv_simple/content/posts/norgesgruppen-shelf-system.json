@@ -1,0 +1,197 @@
+{
+  "layout": "norgesgruppen",
+  "title": "Retail shelf detection and classification for norwegian championship in AI",
+  "subtitle": "Competition",
+  "description": "Write-up of the retail shelf detection and classification pipeline built for the NorgesGruppen classification challenge.",
+  "date": "March 2026",
+  "readingTime": "5 minute read",
+  "headingLinks": [
+    {
+      "label": "GitHub Repo",
+      "href": "https://github.com/nilsvselte/nmiai2",
+      "icon": "github"
+    },
+    {
+      "label": "Submission Notes",
+      "href": "https://github.com/nilsvselte/nmiai2/blob/main/SUBMISSION.md",
+      "icon": "paper"
+    }
+  ],
+  "ranking": {
+    "stats": [
+      {
+        "label": "Placement",
+        "short": "Place",
+        "value": "#22 of 361"
+      },
+      {
+        "label": "Percentile",
+        "short": "Pct",
+        "value": "Top 93.9%"
+      },
+      {
+        "label": "Test score",
+        "short": "Test",
+        "value": "0.7059"
+      },
+      {
+        "label": "Val score",
+        "short": "Val",
+        "value": "0.8349"
+      }
+    ]
+  },
+  "intro": [
+    "At the national championship in AI I worked on the NorgesGruppen Data challenge, a retail computer vision benchmark built around crowded grocery shelves. Each image contained many products, often with visually similar. The task was to train a CV system that could both detect where in the image the products were and the exact SKU for each product. We were given a data set of 248 images of grocery shelves with COCO mappings. I chose a disciplined approach to training with a big validation split of 48 images. That made validation scores map strongly to actual scores, however this approach had one major issue, it left me with much less data. While the top performers trained all parts of their detector families, I only did one small fine tune of the classifier HEAD with the validation set. In hindsight I should have been less worried about overfitting and chosen a more aggressive split.",
+    "Most of the early work was done to maximize the detector performance. The competition weighted box quality at 70% of the score. The winning idea here were ensambles. The top teams used a mix of different detector families to learn different data features. I also tried this approach early but with less success. My ensamble (YOLO8x + RF-DETR-m) box performance was worse than using a bigger single model with reduced precision. Eventually I settled on a single RF-DETR 2XL as the main box proposal reduced to fp16 precision. The reason for the reduction in precision was to save space. The limit of 420mb for the entire submission made me drop precision across all models. On the validation set this didn't seem to affect performance at all. In hindsight the RF-DETR-2XL box proposal model should have been trained on the entire dataset."
+  ],
+  "systemSection": {
+    "heading": "The system",
+    "paragraphs": [
+      "Eventually i landed on a staged pipeline for the final submission. The flow works like this. The trained RF-DETR-2XL model captures boxes around products. These boxes are then cropped from the entire image. The crop is passed (with some margin) to the detector. The detector, a trained EfficientNetV2-M, then generates a likelihood distribution over the product SKUs. Finally if this distribution is low margin, meaning there is no clear winner, the crop is sent to a trained DINOv3 ConvNeXt-s that uses an embedding bank of reference photographs to readjust the distribution.",
+      "Put simply: Draw boxes around products -> crop image to box -> classify what the box contains.",
+      "This is also the reason everything needed reduced precision. Storing three models and an embedding bank in 420mb is not easy! Finally the embedding model used a COS similarity approach"
+    ],
+    "equation": {
+      "line1Html": "ŷ(x) = arg max<sub>c ∈ C<sub>K</sub>(x)</sub> [log p<sub>cls</sub>(c | x) + λ max<sub>r ∈ R<sub>c</sub></sub> cos(z(x), r)]",
+      "line2Html": "z(x) = f(x) / ||f(x)||<sub>2</sub>"
+    },
+    "figure": {
+      "note": "RF-DETR works on the full shelf and only produces box coordinates. One selected box is then cropped and passed to EfficientNet for the SKU decision. If the classifier margin stays small, that crop is embedded, each candidate class takes its best cosine match from the reference bank, and that score is added back to the classifier before a margin-gated relabel.",
+      "caption": "RF-DETR proposes the boxes, one selected box becomes a crop, EfficientNet scores the SKU candidates, and only the close calls are embedded, scored by max cosine against class references, and reranked with a margin gate."
+    },
+    "figureLabels": {
+      "kicker": "RUNTIME STAGES",
+      "input": {
+        "step": "1. INPUT",
+        "title": "Full shelf",
+        "footer": "image"
+      },
+      "detector": {
+        "step": "2. DETECTOR",
+        "title": "RF-DETR 2XL",
+        "footer": "boxes"
+      },
+      "crop": {
+        "step": "3. CROP",
+        "title": "Patch",
+        "footer": "crop"
+      },
+      "classifier": {
+        "step": "4. CLASSIFIER",
+        "title": "EfficientNet-V2-M",
+        "topCandidates": "TOP CANDIDATES",
+        "topScores": "Top-k SKU scores",
+        "lowMarginOnly": "LOW MARGIN ONLY"
+      },
+      "rerank": {
+        "step": "5. LOW-MARGIN RERANK",
+        "title": "DINOv3 ConvNeXt",
+        "maxCos": "MAX COS",
+        "labels": {
+          "crop": "crop",
+          "embed": "embed",
+          "refBank": "ref bank",
+          "rerank": "rerank"
+        }
+      }
+    }
+  },
+  "scoreSection": {
+    "heading": "What moved the score",
+    "paragraphs": [
+      "The early improvements came from making the detector stack stronger and more stable. The larger jump came later, when the pipeline moved away from the ensemble and into a single RF-DETR 2XL path with a stronger crop classifier and, at the end, a selective reranker.",
+      "The progression below is the clearest summary. Detector-centric baselines raised the floor, but the decisive movement came from improving crop-level decisions and only adding the embedder where it actually changed the answer."
+    ],
+    "figure": {
+      "note": "Detector changes improved the floor. The biggest jump came when the stack moved away from the ensemble, kept a single RF-DETR 2XL path, strengthened crop classification, and later added selective reranking for the ambiguous cases only.",
+      "caption": "The main shift was not another detector family. It was the move to a cleaner single-detector path with stronger crop classification and a targeted reranker."
+    }
+  },
+  "trainingSection": {
+    "heading": "Training setup",
+    "paragraphs": [
+      "The final submission was not trained as one monolithic system. The detector, classifier, and reranker each had a separate lane, which made it possible to improve the crop stage without destabilizing the full-image detector, and to attach the reranker only after the rest of the runtime was already working.",
+      "In practice, this is also what made the compact runtime possible. The pipeline could keep the main path small and predictable while still gaining a more careful reference-based decision stage for the hardest cases.",
+      "The competition was sponsored by GCP and fortunately the system could be trained on an overkill 8xA100 box, this made training runs incredibly fast."
+    ],
+    "figure": {
+      "caption": "The detector, classifier, and reranker were trained in separate lanes, then stitched into one compact runtime with extra compute reserved for the ambiguous cases."
+    },
+    "figureLabels": {
+      "kicker": "TRAINING LANES",
+      "lanes": [
+        {
+          "title": "DETECTOR",
+          "summary": "100 epochs, stepping LR down as box quality settled.",
+          "segments": [
+            {
+              "label": ["WARMUP"],
+              "weight": 360,
+              "fill": "#f0d27f"
+            },
+            {
+              "label": ["STABILIZE"],
+              "weight": 288,
+              "fill": "#f3df9e"
+            },
+            {
+              "label": ["POLISH"],
+              "weight": 272,
+              "fill": "#f4efe2"
+            }
+          ]
+        },
+        {
+          "title": "CLASSIFIER",
+          "summary": "Single RF-DETR path, then stronger crop fine-tuning.",
+          "segments": [
+            {
+              "label": ["FINE-TUNE"],
+              "weight": 486,
+              "fill": "#eee6d0"
+            },
+            {
+              "label": ["REFINE"],
+              "weight": 272,
+              "fill": "#e5dcc4"
+            },
+            {
+              "label": ["TUNE"],
+              "weight": 162,
+              "fill": "#d9cfb5"
+            }
+          ]
+        },
+        {
+          "title": "RERANKER",
+          "summary": "Embedder, bank, and selective runtime tuned separately.",
+          "segments": [
+            {
+              "label": ["EMBEDDER"],
+              "weight": 470,
+              "fill": "#efe5cf"
+            },
+            {
+              "label": ["BANK"],
+              "weight": 160,
+              "fill": "#eadcbe"
+            },
+            {
+              "label": ["SELECTIVE", "RUNTIME"],
+              "weight": 290,
+              "fill": "#e5d1b0"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "resultsSection": {
+    "heading": "Results",
+    "paragraphs": [
+      "The remaining errors were mostly near-neighbor packaging confusions: products that already look close to a human observer, especially when they are partially occluded or visually compressed on a shelf. That is exactly the failure mode where a reference-based recheck makes sense.",
+      "The final result was therefore less about one dramatic architectural choice and more about making each stage do a narrower job well: detect, crop, classify, and only then recheck the ambiguous cases."
+    ]
+  }
+}
