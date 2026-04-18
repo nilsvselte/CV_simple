@@ -1,6 +1,7 @@
 {
   "title": "Doggo",
   "subtitle": "Learning how to build Next.js apps",
+  "description": "A short write-up of Doggo, my first full-stack Next.js application.",
   "date": "January 2023",
   "readingTime": "1 minute read",
   "headingLinks": [

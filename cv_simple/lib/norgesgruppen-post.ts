@@ -82,6 +82,8 @@ export type NorgesgruppenPostContent = {
   title: string;
   subtitle: string;
   description: string;
+  publishedAt?: string;
+  updatedAt?: string;
   date: string;
   readingTime: string;
   headingLinks: HeadingLink[];

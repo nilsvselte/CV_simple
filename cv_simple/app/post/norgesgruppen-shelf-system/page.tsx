@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 import { ScoreProgressChart } from "@/components/norgesgruppen/charts";
+import { getTrackedGitDates } from "@/lib/git-dates";
 import norgesgruppenPost, {
   type EquationContent,
   type RankingStat,
@@ -10,11 +11,30 @@ import norgesgruppenPost, {
 } from "@/lib/norgesgruppen-post";
 import type { HeadingLink } from "@/lib/posts";
 import { scoreProgression } from "@/lib/norgesgruppen-writeup";
+import {
+  SEARCH_NAME,
+  countWordsFromTextBlocks,
+  createArticleStructuredData,
+  createPageMetadata,
+} from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: `${norgesgruppenPost.title} | Nils Valseth Selte`,
-  description: norgesgruppenPost.description || norgesgruppenPost.intro[0],
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const gitDates = await getTrackedGitDates([
+    "content/posts/norgesgruppen-shelf-system.json",
+    "app/post/norgesgruppen-shelf-system/page.tsx",
+  ]);
+
+  return createPageMetadata({
+    title: `${norgesgruppenPost.title} | ${SEARCH_NAME}`,
+    description: norgesgruppenPost.description || norgesgruppenPost.intro[0],
+    path: "/post/norgesgruppen-shelf-system",
+    openGraphType: "article",
+    publishedTime: norgesgruppenPost.publishedAt ?? gitDates.publishedAt,
+    modifiedTime: norgesgruppenPost.updatedAt ?? gitDates.updatedAt,
+    section: norgesgruppenPost.subtitle,
+    tags: [norgesgruppenPost.title, norgesgruppenPost.subtitle],
+  });
+}
 
 const buttonBaseClasses =
   "group inline-flex items-center gap-2 border border-black/70 bg-[var(--background)] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--foreground)] shadow-[3px_3px_0_rgba(0,0,0,0.7)] transition-transform duration-200 hover:-translate-y-0.5 hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black";
@@ -1682,11 +1702,41 @@ function TrainingFigure({
   );
 }
 
-export default function NorgesgruppenShelfSystemPage() {
+export default async function NorgesgruppenShelfSystemPage() {
   const post = norgesgruppenPost;
+  const gitDates = await getTrackedGitDates([
+    "content/posts/norgesgruppen-shelf-system.json",
+    "app/post/norgesgruppen-shelf-system/page.tsx",
+  ]);
+  const wordCount = countWordsFromTextBlocks([
+    ...post.intro,
+    ...post.systemSection.paragraphs,
+    ...post.scoreSection.paragraphs,
+    ...post.trainingSection.paragraphs,
+    ...post.resultsSection.paragraphs,
+    post.systemSection.heading,
+    post.scoreSection.heading,
+    post.trainingSection.heading,
+    post.resultsSection.heading,
+  ]);
+  const articleStructuredData = createArticleStructuredData({
+    title: post.title,
+    description: post.description || post.intro[0],
+    path: "/post/norgesgruppen-shelf-system",
+    datePublished: post.publishedAt ?? gitDates.publishedAt,
+    dateModified: post.updatedAt ?? gitDates.updatedAt,
+    section: post.subtitle,
+    wordCount,
+  });
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleStructuredData),
+        }}
+      />
       <main className="mx-auto w-full max-w-4xl px-4 py-10 text-base leading-relaxed text-foreground sm:px-6 md:px-8">
         <Link
           href="/"

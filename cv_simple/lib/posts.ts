@@ -20,9 +20,16 @@ export type HeadingLink = {
   icon?: HeadingLinkIcon;
 };
 
+export type PostSEO = {
+  index?: boolean;
+};
+
 export type PostContent = {
   title: string;
   subtitle?: string;
+  description?: string;
+  publishedAt?: string;
+  updatedAt?: string;
   date: string;
   readingTime?: string;
   headingLinks?: HeadingLink[];
@@ -42,6 +49,7 @@ export type PostContent = {
     actionLabel?: string;
     actionHref?: string;
   };
+  seo?: PostSEO;
 };
 
 const POSTS_DIR = path.join(process.cwd(), "content", "posts");
@@ -67,4 +75,27 @@ export async function getPost(slug: string): Promise<PostContent | null> {
     console.error(`Unable to load post ${slug}`, error);
     return null;
   }
+}
+
+export function isPostIndexable(post: Pick<PostContent, "seo">) {
+  return post.seo?.index !== false;
+}
+
+export function getPostWordCount(post: Pick<PostContent, "intro" | "sections">) {
+  const text = [
+    ...post.intro,
+    ...post.sections.flatMap((section) => [
+      section.heading,
+      ...section.paragraphs,
+      ...(section.bullets ?? []),
+    ]),
+  ]
+    .join(" ")
+    .trim();
+
+  if (!text) {
+    return undefined;
+  }
+
+  return text.split(/\s+/).length;
 }

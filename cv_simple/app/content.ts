@@ -131,7 +131,10 @@ const resolveHrefValue = (
       }
       return envValue;
     }
-    console.warn(`Environment variable "${envKey}" is not defined.`);
+
+    if (!direct) {
+      console.warn(`Environment variable "${envKey}" is not defined.`);
+    }
   }
   return direct ?? fallback;
 };

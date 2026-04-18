@@ -1,6 +1,7 @@
 {
   "title": "Cortex AI",
   "subtitle": "Stealth Project",
+  "description": "Stealth project page for Cortex AI.",
   "date": "Ongoing",
   "readingTime": "1 minute read",
   "headingLinks": [],
@@ -18,5 +19,8 @@
     "body": "I'm always open to discussing anything related to what I'm building.",
     "actionLabel": "Email me",
     "actionHref": "mailto:nilsvselte@gmail.com"
+  },
+  "seo": {
+    "index": false
   }
 }

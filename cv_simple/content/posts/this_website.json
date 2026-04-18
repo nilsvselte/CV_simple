@@ -1,6 +1,7 @@
 {
   "title": "Building This Website",
   "subtitle": "Personal Update",
+  "description": "How I built this personal website as a low-maintenance, data-driven Next.js portfolio.",
   "date": "June 2025",
   "readingTime": "4 minute read",
   "headingLinks": [

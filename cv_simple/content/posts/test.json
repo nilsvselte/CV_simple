@@ -1,6 +1,7 @@
 {
   "title": "Real-Time Chunking for Human-Scale Memory",
   "subtitle": "Research Field Note",
+  "description": "Research-style note on real-time chunking and memory systems.",
   "date": "January 2025",
   "readingTime": "6 minute read",
   "intro": [
@@ -51,5 +52,8 @@
     "body": "If you're experimenting with on-device LLMs, context compressors, or memory vaults, I'm looking for collaborators.",
     "actionLabel": "Email me",
     "actionHref": "mailto:nilsvselte@gmail.com"
+  },
+  "seo": {
+    "index": true
   }
 }

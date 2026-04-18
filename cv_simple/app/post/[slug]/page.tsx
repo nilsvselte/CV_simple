@@ -2,8 +2,20 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-import { getPost, getPostSlugs } from "@/lib/posts";
+import {
+  getPost,
+  getPostSlugs,
+  getPostWordCount,
+  isPostIndexable,
+} from "@/lib/posts";
+import { getTrackedGitDates } from "@/lib/git-dates";
 import type { HeadingLink } from "@/lib/posts";
+import {
+  SEARCH_NAME,
+  SITE_DESCRIPTION,
+  createArticleStructuredData,
+  createPageMetadata,
+} from "@/lib/site";
 
 type PostPageProps = {
   params: Promise<{
@@ -28,10 +40,23 @@ export async function generateMetadata({
     };
   }
 
-  return {
-    title: `${post.title} | Nils Valseth Selte`,
-    description: post.intro?.[0],
-  };
+  const description =
+    post.description?.trim() ||
+    post.intro.find((paragraph) => paragraph.trim().length > 0) ||
+    SITE_DESCRIPTION;
+  const gitDates = await getTrackedGitDates([`content/posts/${slug}.json`]);
+
+  return createPageMetadata({
+    title: `${post.title} | ${SEARCH_NAME}`,
+    description,
+    path: `/post/${slug}`,
+    index: isPostIndexable(post),
+    openGraphType: "article",
+    publishedTime: post.publishedAt ?? gitDates.publishedAt,
+    modifiedTime: post.updatedAt ?? gitDates.updatedAt,
+    section: post.subtitle,
+    tags: [post.title, post.subtitle ?? ""],
+  });
 }
 
 export default async function PostPage({ params }: PostPageProps) {
@@ -41,6 +66,27 @@ export default async function PostPage({ params }: PostPageProps) {
   if (!post) {
     notFound();
   }
+
+  const description =
+    post.description?.trim() ||
+    post.intro.find((paragraph) => paragraph.trim().length > 0) ||
+    SITE_DESCRIPTION;
+  const gitDates = await getTrackedGitDates([`content/posts/${slug}.json`]);
+  const headingLinks =
+    post.headingLinks?.filter(
+      (headingLink) => headingLink.href.trim().length > 0
+    ) ?? [];
+  const articleStructuredData = isPostIndexable(post)
+    ? createArticleStructuredData({
+        title: post.title,
+        description,
+        path: `/post/${slug}`,
+        datePublished: post.publishedAt ?? gitDates.publishedAt,
+        dateModified: post.updatedAt ?? gitDates.updatedAt,
+        section: post.subtitle,
+        wordCount: getPostWordCount(post),
+      })
+    : null;
 
   const buttonBaseClasses =
     "group inline-flex items-center gap-2 border border-black/70 bg-[var(--background)] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--foreground)] shadow-[3px_3px_0_rgba(0,0,0,0.7)] transition-transform duration-200 hover:-translate-y-0.5 hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black";
@@ -119,6 +165,14 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {articleStructuredData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(articleStructuredData),
+          }}
+        />
+      )}
       <main className="mx-auto w-full max-w-4xl px-4 py-10 text-base leading-relaxed text-foreground sm:px-6 md:px-8">
         <Link
           href="/"
@@ -140,10 +194,10 @@ export default async function PostPage({ params }: PostPageProps) {
             <span>{post.date}</span>
             {post.readingTime && <span>{post.readingTime}</span>}
           </div>
-          {post.headingLinks && post.headingLinks.length > 0 && (
+          {headingLinks.length > 0 && (
             <div className="pt-4">
               <div className="flex flex-wrap gap-3">
-                {post.headingLinks.map((headingLink) => (
+                {headingLinks.map((headingLink) => (
                   <a
                     key={`${headingLink.label}-${headingLink.href}`}
                     href={headingLink.href}
@@ -182,9 +236,11 @@ export default async function PostPage({ params }: PostPageProps) {
         <div className="mt-10 space-y-10">
           {post.sections.map((section, index) => (
             <section key={`section-${index}`} className="space-y-4">
-              <h2 className="text-2xl font-serif leading-snug">
-                {section.heading}
-              </h2>
+              {section.heading.trim().length > 0 && (
+                <h2 className="text-2xl font-serif leading-snug">
+                  {section.heading}
+                </h2>
+              )}
               {section.paragraphs.map((paragraph, paragraphIndex) => (
                 <p key={`section-${index}-${paragraphIndex}`}>{paragraph}</p>
               ))}

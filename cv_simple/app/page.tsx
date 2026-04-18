@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+import {
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  createHomepageStructuredData,
+  createPageMetadata,
+} from "@/lib/site";
+
 import content, { TimelineVariant, TitlePart } from "./content";
 
 const classNames = (...classes: Array<string | false | undefined>) =>
@@ -42,19 +51,36 @@ const renderTitleParts = (parts: TitlePart[]) =>
     );
   });
 
+export const metadata: Metadata = createPageMetadata({
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  path: "/",
+});
+
 export default function Home() {
   const { site, navigation, timeline, team, investors } = content;
+  const homepageStructuredData = createHomepageStructuredData();
+  const hasTeamHeading = team.heading.trim().length > 0;
+  const teamMembers = team.members.filter((member) => member.trim().length > 0);
 
   return (
     <div className="min-h-screen bg-background" id="top">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homepageStructuredData),
+        }}
+      />
       <main className="w-full max-w-3xl px-4 pr-6 py-8 text-sm text-foreground sm:px-6 md:px-8">
         <header className="ml-4 flex flex-col gap-4 border-b border-black/10 pb-6 md:flex-row md:items-center md:justify-between">
-          <a
-            href="#top"
-            className="text-3xl font-serif tracking-tight hover:underline"
-          >
-            {site.name}
-          </a>
+          <h1 className="m-0">
+            <a
+              href="#top"
+              className="text-3xl font-serif tracking-tight hover:underline"
+            >
+              {site.name}
+            </a>
+          </h1>
           <nav className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.2em] text-(--muted)">
             {navigation.links.map(({ label, href, external }) => (
               <a
@@ -171,16 +197,20 @@ export default function Home() {
         </section>
 
         <section id="team" className="ml-4 mt-10">
-          <h2 className="text-base font-semibold uppercase tracking-[0.3em]">
-            {team.heading}
-          </h2>
-          <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-[13px] text-neutral-700 md:grid-cols-3">
-            {team.members.map((name) => (
-              <p key={name} className="truncate">
-                {name}
-              </p>
-            ))}
-          </div>
+          {hasTeamHeading && (
+            <h2 className="text-base font-semibold uppercase tracking-[0.3em]">
+              {team.heading}
+            </h2>
+          )}
+          {teamMembers.length > 0 && (
+            <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-[13px] text-neutral-700 md:grid-cols-3">
+              {teamMembers.map((name) => (
+                <p key={name} className="truncate">
+                  {name}
+                </p>
+              ))}
+            </div>
+          )}
           <p className="mt-4 text-sm">
             {team.cta.prefix}{" "}
             <a

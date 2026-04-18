@@ -14,7 +14,12 @@
     "links": [
       { "label": "Home", "href": "#top" },
       { "label": "Updates", "href": "#updates" },
-      { "label": "Contact", "hrefEnv": "NAV_CONTACT_LINK", "external": true }
+      {
+        "label": "Contact",
+        "href": "mailto:nilsvselte@gmail.com",
+        "hrefEnv": "NAV_CONTACT_LINK",
+        "external": true
+      }
     ]
   },
   "timeline": {
@@ -157,6 +162,7 @@
     "cta": {
       "prefix": "If you want to chat about AI, finance, sailing or building things, please",
       "linkText": "get in touch",
+      "linkHref": "mailto:nilsvselte@gmail.com",
       "linkHrefEnv": "NAV_CONTACT_LINK",
       "suffix": "."
     }

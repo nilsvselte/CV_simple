@@ -1,6 +1,7 @@
 {
   "title": "Mini-Market-Making Bot",
   "subtitle": "Learning how market makers make money",
+  "description": "Write-up of a full-stack market-making bot built to learn order books, execution logic, and trading infrastructure.",
   "date": "August 2025",
   "readingTime": "2 minute read",
   "headingLinks": [
