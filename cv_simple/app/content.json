@@ -37,7 +37,7 @@
         "description": "Write-up of the NorgesGruppen Data challenge.",
         "date": "March 2026",
         "badge": "Competition",
-        "variant": "plain"
+        "variant": "primary"
       },
       {
         "href": "/post/this_website",
@@ -65,7 +65,7 @@
         "description": "Something very cool and useful is coming 🤫.",
         "date": "Ongoing",
         "badge": "Stealth Project",
-        "variant": "primary"
+        "variant": "plain"
       },
       {
         "href": "/post/market_making_bot",

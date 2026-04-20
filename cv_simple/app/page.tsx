@@ -45,7 +45,7 @@ const renderTitleParts = (parts: TitlePart[]) =>
     }
 
     return (
-      <span key={`text-${index}`} className="whitespace-pre-wrap">
+      <span key={`text-${index}`}>
         {part.value}
       </span>
     );
@@ -71,17 +71,17 @@ export default function Home() {
           __html: JSON.stringify(homepageStructuredData),
         }}
       />
-      <main className="w-full max-w-3xl px-4 pr-6 py-8 text-sm text-foreground sm:px-6 md:px-8">
-        <header className="ml-4 flex flex-col gap-4 border-b border-black/10 pb-6 md:flex-row md:items-center md:justify-between">
+      <main className="w-full max-w-3xl px-4 pb-8 pt-5 text-sm text-foreground sm:px-6 sm:pt-8 md:px-8">
+        <header className="flex flex-col gap-4 border-b border-black/10 pb-6 sm:ml-4 md:flex-row md:items-center md:justify-between">
           <h1 className="m-0">
             <a
               href="#top"
-              className="text-3xl font-serif tracking-tight hover:underline"
+              className="text-3xl font-serif tracking-tight"
             >
               {site.name}
             </a>
           </h1>
-          <nav className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.2em] text-(--muted)">
+          <nav className="flex flex-wrap gap-4 text-sm leading-relaxed text-(--muted)">
             {navigation.links.map(({ label, href, external }) => (
               <a
                 key={label}
@@ -96,7 +96,7 @@ export default function Home() {
           </nav>
         </header>
 
-        <section className="ml-4 mt-8 space-y-4 text-sm leading-relaxed">
+        <section className="mt-8 space-y-4 text-sm leading-relaxed sm:ml-4">
           {site.hero.paragraphs.map((paragraph, index) => (
             <p key={`hero-${index}`}>{paragraph}</p>
           ))}
@@ -139,18 +139,18 @@ export default function Home() {
                   const itemContent = (
                     <>
                       <span className="absolute -left-6 top-1/2 block h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-neutral-900 outline outline-background" />
-                      <div className="flex flex-wrap items-baseline gap-2">
-                        <div className="flex flex-1 flex-wrap items-center gap-2">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex min-w-0 flex-1 items-center gap-2">
                           {badge && (
-                            <span className="bg-[#fbd45b] px-1 text-[10px] font-semibold uppercase text-[#111]">
+                            <span className="shrink-0 bg-[#fbd45b] px-1 text-[10px] font-semibold uppercase text-[#111]">
                               {badge}
                             </span>
                           )}
-                          <div className="min-w-0 text-sm font-semibold leading-tight">
+                          <p className="min-w-0 flex-1 truncate text-[12px] font-semibold leading-relaxed text-foreground">
                             {renderTitleParts(titleParts)}
-                          </div>
+                          </p>
                         </div>
-                        <div className="flex items-center gap-1 text-[11px] text-neutral-500">
+                        <div className="flex shrink-0 items-center gap-1 pt-0.5 text-[11px] text-neutral-500">
                           <time>{date}</time>
                           {hasLink && (
                             <span className="relative -top-0.5 text-sm font-semibold leading-none text-neutral-400 transition-colors group-hover:text-neutral-700">
@@ -159,7 +159,7 @@ export default function Home() {
                           )}
                         </div>
                       </div>
-                      <p className="mt-2 text-[12px] text-neutral-600">
+                      <p className="mt-2 text-[12px] leading-relaxed text-neutral-600">
                         {description}
                       </p>
                     </>
@@ -196,7 +196,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="team" className="ml-4 mt-10">
+        <section id="team" className="mt-10 sm:ml-4">
           {hasTeamHeading && (
             <h2 className="text-base font-semibold uppercase tracking-[0.3em]">
               {team.heading}
@@ -225,7 +225,7 @@ export default function Home() {
           </p>
         </section>
 
-        <section id="investors" className="ml-4 mt-10 space-y-3">
+        <section id="investors" className="mt-10 space-y-3 sm:ml-4">
           <h2 className="text-base font-semibold uppercase tracking-[0.3em]">
             {investors.heading}
           </h2>
@@ -243,7 +243,7 @@ export default function Home() {
           </p>
         </section>
 
-        <footer className="ml-4 mt-12 border-t border-black/10 pt-6 text-xs uppercase tracking-[0.3em] text-neutral-500">
+        <footer className="mt-12 border-t border-black/10 pt-6 text-xs uppercase tracking-[0.3em] text-neutral-500 sm:ml-4">
           {site.footer}
         </footer>
       </main>
