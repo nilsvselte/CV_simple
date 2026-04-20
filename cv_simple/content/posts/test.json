@@ -54,6 +54,6 @@
     "actionHref": "mailto:nilsvselte@gmail.com"
   },
   "seo": {
-    "index": true
+    "index": false
   }
 }

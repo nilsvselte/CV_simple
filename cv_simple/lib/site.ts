@@ -34,11 +34,29 @@ type ArticleStructuredDataOptions = {
 
 export const PERSON_NAME = "Nils Valseth Selte";
 export const SEARCH_NAME = "Nils Selte";
-export const SITE_URL = (
+function normalizeSiteUrl(rawUrl: string) {
+  const trimmed = rawUrl.replace(/\/$/, "");
+
+  try {
+    const url = new URL(trimmed);
+
+    if (url.hostname.startsWith("www.")) {
+      url.hostname = url.hostname.replace(/^www\./, "");
+    }
+
+    return url.toString().replace(/\/$/, "");
+  } catch {
+    return trimmed.replace(/^https?:\/\/www\./, (match) =>
+      match.includes("https://") ? "https://" : "http://"
+    );
+  }
+}
+
+export const SITE_URL = normalizeSiteUrl(
   process.env.NEXT_PUBLIC_SITE_URL ??
-  process.env.SITE_URL ??
-  "https://www.nilsselte.no"
-).replace(/\/$/, "");
+    process.env.SITE_URL ??
+    "https://nilsselte.no"
+);
 export const SITE_TITLE = `${SEARCH_NAME} | AI, finance, and software projects`;
 export const SITE_DESCRIPTION =
   "Nils Selte, full name Nils Valseth Selte, is an Industrial Economics and Technology Management student at NTNU who writes about AI, finance, software, and the projects he builds.";
