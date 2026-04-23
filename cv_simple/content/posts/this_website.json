@@ -55,5 +55,8 @@
     "body": "If there's something you'd like to see on the site or want to collaborate, I'd love to hear from you.",
     "actionLabel": "Email me",
     "actionHref": "mailto:nilsvselte@gmail.com"
+  },
+  "seo": {
+    "index": false
   }
 }
