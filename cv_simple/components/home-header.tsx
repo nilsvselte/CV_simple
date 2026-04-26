@@ -47,7 +47,7 @@ export function HomeHeader({
   }, []);
 
   const handleHashClick = (
-    event: MouseEvent<HTMLAnchorElement>,
+    event: MouseEvent<HTMLAnchorElement> | undefined,
     href: string,
     linkHash: string | null
   ) => {
@@ -56,7 +56,7 @@ export function HomeHeader({
     }
 
     if (linkHash === "updates") {
-      event.preventDefault();
+      event?.preventDefault();
       window.history.pushState(null, "", href);
       setActiveHash(linkHash);
       return;

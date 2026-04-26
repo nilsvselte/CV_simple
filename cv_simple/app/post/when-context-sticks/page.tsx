@@ -226,7 +226,6 @@ function ResultsSurfaceFigure() {
             width={1400}
             height={460}
             sizes="(min-width: 768px) 42rem, calc(100vw - 3rem)"
-            quality={78}
             loading="lazy"
             className="h-auto w-full"
           />
