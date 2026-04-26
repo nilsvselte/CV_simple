@@ -166,6 +166,11 @@ export default function Home() {
                       <p className="mt-1.5 text-[12px] leading-normal text-neutral-600">
                         {description}
                       </p>
+                      {hasLink && (
+                        <p className="mt-1.5 text-right text-[11px] font-medium text-neutral-500 group-hover:text-neutral-800 sm:hidden">
+                          {isExternal ? "Open" : "Read post"} →
+                        </p>
+                      )}
                     </>
                   );
 
