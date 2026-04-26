@@ -59,7 +59,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function Home() {
-  const { site, navigation, timeline, team, investors } = content;
+  const { site, navigation, timeline, team } = content;
   const homepageStructuredData = createHomepageStructuredData();
   const hasTeamHeading = team.heading.trim().length > 0;
   const teamMembers = team.members.filter((member) => member.trim().length > 0);
@@ -204,24 +204,6 @@ export default function Home() {
               {team.cta.linkText}
             </a>
             {team.cta.suffix}
-          </p>
-        </section>
-
-        <section id="investors" className="mt-8 space-y-2 sm:ml-2">
-          <h2 className="text-base font-semibold uppercase tracking-[0.3em]">
-            {investors.heading}
-          </h2>
-          <p>
-            {investors.body.prefix}{" "}
-            <a
-              href={investors.body.linkHref}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="underline decoration-2 underline-offset-4"
-            >
-              {investors.body.linkText}
-            </a>{" "}
-            {investors.body.suffix}
           </p>
         </section>
 
