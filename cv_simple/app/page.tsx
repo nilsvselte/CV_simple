@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { HomeHeader } from "@/components/home-header";
+import { IdleRoutePrefetcher } from "@/components/idle-route-prefetcher";
 import {
   SITE_DESCRIPTION,
   SITE_TITLE,
@@ -52,6 +54,17 @@ const renderTitleParts = (parts: TitlePart[]) =>
     );
   });
 
+const getTimelineRoute = ({
+  href,
+  postSlug,
+}: {
+  href: string;
+  postSlug?: string;
+}) => (postSlug ? `/post/${postSlug}` : href);
+
+const shouldPrefetchTimelineRoute = (route: string) =>
+  route.startsWith("/post/") && !route.startsWith("//");
+
 export const metadata: Metadata = createPageMetadata({
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
@@ -68,6 +81,9 @@ export default function Home() {
     "",
     ...site.hero.paragraphs.slice(1),
   ].join("\n");
+  const routesToPrefetch = timeline.items
+    .map(getTimelineRoute)
+    .filter(shouldPrefetchTimelineRoute);
 
   return (
     <div className="min-h-screen bg-background" id="top">
@@ -82,6 +98,11 @@ export default function Home() {
           siteName={site.name}
           links={navigation.links}
           intro={heroIntro}
+        />
+        <IdleRoutePrefetcher
+          routes={routesToPrefetch}
+          delayMs={300}
+          warmDocuments={process.env.NODE_ENV === "development"}
         />
 
         <section id={timeline.sectionId} className="mt-6">
@@ -114,9 +135,10 @@ export default function Home() {
                     )
                     .join("-")}`;
                   const linkHref = postSlug ? `/post/${postSlug}` : href || "#";
-                  const hasLink = Boolean(postSlug) || (href && href !== "#");
+                  const hasLink = Boolean(postSlug || (href && href !== "#"));
                   const isExternal =
                     hasLink && !postSlug && /^https?:\/\//.test(linkHref);
+                  const isInternal = hasLink && !isExternal;
 
                   const itemContent = (
                     <>
@@ -152,6 +174,19 @@ export default function Home() {
                     variantStyles[variant][hasLink ? "interactive" : "static"],
                     hasLink ? "group cursor-pointer" : "cursor-default"
                   );
+
+                  if (isInternal) {
+                    return (
+                      <Link
+                        key={`${baseKey}-link`}
+                        href={linkHref}
+                        prefetch
+                        className={sharedClasses}
+                      >
+                        {itemContent}
+                      </Link>
+                    );
+                  }
 
                   if (hasLink) {
                     return (
