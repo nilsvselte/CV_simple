@@ -1,3 +1,4 @@
+@import "katex/dist/katex.min.css";
 @import "tailwindcss";
 
 :root {
@@ -36,4 +37,19 @@ a {
 ::selection {
   background: #ffecb8;
   color: #1c1a16;
+}
+
+.context-sticks-equation .katex-display {
+  margin: 0;
+  text-align: left;
+}
+
+.context-sticks-equation .katex {
+  font-size: 1.06rem;
+}
+
+@media (min-width: 40rem) {
+  .context-sticks-equation .katex {
+    font-size: 1.1rem;
+  }
 }

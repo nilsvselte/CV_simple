@@ -3,7 +3,7 @@
     "name": "Nils Valseth Selte",
     "hero": {
       "paragraphs": [
-        "Software is eating the world - Marc Andreessen",
+        "Transformers are eating software.\nSoftware is eating the world - Marc Andreessen",
         "Industrial Economics & Technology Management student (NTNU '27, Berkeley Exchange '25) specializing in Artificial Intelligence and Finance.",
         "I like building things people find value in, talking to people about how software can help them, and working with highly ambitious and motivated teams."
       ]
@@ -25,6 +25,20 @@
   "timeline": {
     "sectionId": "updates",
     "items": [
+      {
+        "href": "/post/when-context-sticks",
+        "postSlug": "when-context-sticks",
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "When context sticks"
+          }
+        ],
+        "description": "Writeup of preprint on interference and recovery in in-context learning.",
+        "date": "April 2026",
+        "badge": "Preprint",
+        "variant": "plain"
+      },
       {
         "href": "/post/norgesgruppen-shelf-system",
         "postSlug": "norgesgruppen-shelf-system",

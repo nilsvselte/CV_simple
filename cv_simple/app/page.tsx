@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { HomeHeader } from "@/components/home-header";
 import {
   SITE_DESCRIPTION,
   SITE_TITLE,
@@ -62,6 +63,11 @@ export default function Home() {
   const homepageStructuredData = createHomepageStructuredData();
   const hasTeamHeading = team.heading.trim().length > 0;
   const teamMembers = team.members.filter((member) => member.trim().length > 0);
+  const heroIntro = [
+    site.hero.paragraphs[0],
+    "",
+    ...site.hero.paragraphs.slice(1),
+  ].join("\n");
 
   return (
     <div className="min-h-screen bg-background" id="top">
@@ -71,39 +77,15 @@ export default function Home() {
           __html: JSON.stringify(homepageStructuredData),
         }}
       />
-      <main className="w-full max-w-3xl px-4 pb-8 pt-5 text-sm text-foreground sm:px-6 sm:pt-8 md:px-8">
-        <header className="flex flex-col gap-4 border-b border-black/10 pb-6 sm:ml-4 md:flex-row md:items-center md:justify-between">
-          <h1 className="m-0">
-            <a
-              href="#top"
-              className="text-3xl font-serif tracking-tight"
-            >
-              {site.name}
-            </a>
-          </h1>
-          <nav className="flex flex-wrap gap-4 text-sm leading-relaxed text-(--muted)">
-            {navigation.links.map(({ label, href, external }) => (
-              <a
-                key={label}
-                href={href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noreferrer noopener" : undefined}
-                className="underline-offset-8 decoration-2 hover:underline hover:text-foreground"
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-        </header>
+      <main className="w-full max-w-2xl px-3 pb-6 pt-4 text-sm text-foreground sm:px-5 sm:pt-6 md:px-6">
+        <HomeHeader
+          siteName={site.name}
+          links={navigation.links}
+          intro={heroIntro}
+        />
 
-        <section className="mt-8 space-y-4 text-sm leading-relaxed sm:ml-4">
-          {site.hero.paragraphs.map((paragraph, index) => (
-            <p key={`hero-${index}`}>{paragraph}</p>
-          ))}
-        </section>
-
-        <section id={timeline.sectionId} className="mt-8">
-          <div className="pl-2">
+        <section id={timeline.sectionId} className="mt-6">
+          <div className="pl-1">
             <div className="relative border-l border-neutral-300">
               <span
                 aria-hidden="true"
@@ -113,7 +95,7 @@ export default function Home() {
                 aria-hidden="true"
                 className="pointer-events-none absolute -bottom-8 left-0 block h-8 w-px bg-linear-to-b from-transparent to-background"
               />
-              <div className="space-y-4 py-6 pl-6">
+              <div className="space-y-3 py-4 pl-5">
                 {timeline.items.map((item) => {
                   const {
                     href,
@@ -138,7 +120,7 @@ export default function Home() {
 
                   const itemContent = (
                     <>
-                      <span className="absolute -left-6 top-1/2 block h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-neutral-900 outline outline-background" />
+                      <span className="absolute -left-5 top-1/2 block h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-neutral-900 outline outline-background" />
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex min-w-0 flex-1 items-center gap-2">
                           {badge && (
@@ -159,14 +141,14 @@ export default function Home() {
                           )}
                         </div>
                       </div>
-                      <p className="mt-2 text-[12px] leading-relaxed text-neutral-600">
+                      <p className="mt-1.5 text-[12px] leading-normal text-neutral-600">
                         {description}
                       </p>
                     </>
                   );
 
                   const sharedClasses = classNames(
-                    "relative block px-4 py-3 transition-all duration-200",
+                    "relative block px-3 py-2.5 transition-all duration-200",
                     variantStyles[variant][hasLink ? "interactive" : "static"],
                     hasLink ? "group cursor-pointer" : "cursor-default"
                   );
@@ -196,7 +178,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="team" className="mt-10 sm:ml-4">
+        <section id="team" className="mt-8 sm:ml-2">
           {hasTeamHeading && (
             <h2 className="text-base font-semibold uppercase tracking-[0.3em]">
               {team.heading}
@@ -225,7 +207,7 @@ export default function Home() {
           </p>
         </section>
 
-        <section id="investors" className="mt-10 space-y-3 sm:ml-4">
+        <section id="investors" className="mt-8 space-y-2 sm:ml-2">
           <h2 className="text-base font-semibold uppercase tracking-[0.3em]">
             {investors.heading}
           </h2>
@@ -243,7 +225,7 @@ export default function Home() {
           </p>
         </section>
 
-        <footer className="mt-12 border-t border-black/10 pt-6 text-xs uppercase tracking-[0.3em] text-neutral-500 sm:ml-4">
+        <footer className="mt-9 border-t border-black/10 pt-4 text-xs uppercase tracking-[0.3em] text-neutral-500 sm:ml-2">
           {site.footer}
         </footer>
       </main>

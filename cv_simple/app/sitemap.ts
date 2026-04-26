@@ -8,6 +8,31 @@ import { absoluteUrl } from "@/lib/site";
 
 type SitemapEntry = MetadataRoute.Sitemap[number];
 
+const customPosts = [
+  {
+    slug: "norgesgruppen-shelf-system",
+    files: [
+      "app/post/norgesgruppen-shelf-system/page.tsx",
+      "content/posts/norgesgruppen-shelf-system.json",
+      "lib/norgesgruppen-post.ts",
+      "lib/site.ts",
+    ],
+    priority: 0.8,
+  },
+  {
+    slug: "when-context-sticks",
+    files: [
+      "app/post/when-context-sticks/page.tsx",
+      "content/posts/when-context-sticks.json",
+      "lib/when-context-sticks-post.ts",
+      "lib/site.ts",
+    ],
+    priority: 0.8,
+  },
+];
+
+const customPostSlugs = new Set(customPosts.map((post) => post.slug));
+
 async function getLastModified(...relativePaths: string[]) {
   const timestamps = await Promise.all(
     relativePaths.map(async (relativePath) => {
@@ -34,10 +59,10 @@ async function getLastModified(...relativePaths: string[]) {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const slugs = await getPostSlugs();
   const genericPostEntries: Array<SitemapEntry | null> = await Promise.all(
-      slugs
-        .filter((slug) => slug !== "norgesgruppen-shelf-system")
-        .map(async (slug) => {
-          const post = await getPost(slug);
+    slugs
+      .filter((slug) => !customPostSlugs.has(slug))
+      .map(async (slug) => {
+        const post = await getPost(slug);
 
         if (!post || !isPostIndexable(post)) {
           return null;
@@ -58,6 +83,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const indexedPostEntries = genericPostEntries.filter(
     (entry): entry is SitemapEntry => entry !== null
   );
+  const customPostEntries: SitemapEntry[] = (
+    await Promise.all(
+      customPosts.map(async (customPost): Promise<SitemapEntry | null> => {
+        const post = await getPost(customPost.slug);
+
+        if (!post || !isPostIndexable(post)) {
+          return null;
+        }
+
+        return {
+          url: absoluteUrl(`/post/${customPost.slug}`),
+          lastModified: await getLastModified(...customPost.files),
+          changeFrequency: "monthly" as const,
+          priority: customPost.priority,
+        };
+      })
+    )
+  ).filter((entry): entry is SitemapEntry => entry !== null);
 
   return [
     {
@@ -71,17 +114,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 1,
     },
-    {
-      url: absoluteUrl("/post/norgesgruppen-shelf-system"),
-      lastModified: await getLastModified(
-        "app/post/norgesgruppen-shelf-system/page.tsx",
-        "content/posts/norgesgruppen-shelf-system.json",
-        "lib/norgesgruppen-post.ts",
-        "lib/site.ts"
-      ),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
+    ...customPostEntries,
     ...indexedPostEntries,
   ];
 }
