@@ -29,13 +29,6 @@ export type TeamCTA = {
   suffix: string;
 };
 
-export type InvestorBody = {
-  prefix: string;
-  linkText: string;
-  linkHref: string;
-  suffix: string;
-};
-
 export type SiteContent = {
   site: {
     name: string;
@@ -56,10 +49,6 @@ export type SiteContent = {
     members: string[];
     cta: TeamCTA;
   };
-  investors: {
-    heading: string;
-    body: InvestorBody;
-  };
 };
 
 type NavigationLinkSource = Omit<NavigationLink, "href"> & {
@@ -77,11 +66,6 @@ type TeamCTASource = Omit<TeamCTA, "linkHref"> & {
   linkHrefEnv?: string;
 };
 
-type InvestorBodySource = Omit<InvestorBody, "linkHref"> & {
-  linkHref?: string;
-  linkHrefEnv?: string;
-};
-
 type SiteContentSource = {
   site: SiteContent["site"];
   navigation: {
@@ -95,10 +79,6 @@ type SiteContentSource = {
     heading: string;
     members: string[];
     cta: TeamCTASource;
-  };
-  investors: {
-    heading: string;
-    body: InvestorBodySource;
   };
 };
 
@@ -165,16 +145,6 @@ const content: SiteContent = {
     members: contentData.team.members,
     cta: (() => {
       const { linkHrefEnv, linkHref, ...rest } = contentData.team.cta;
-      return {
-        ...rest,
-        linkHref: resolveHrefValue(linkHref, linkHrefEnv, "#"),
-      };
-    })(),
-  },
-  investors: {
-    heading: contentData.investors.heading,
-    body: (() => {
-      const { linkHrefEnv, linkHref, ...rest } = contentData.investors.body;
       return {
         ...rest,
         linkHref: resolveHrefValue(linkHref, linkHrefEnv, "#"),

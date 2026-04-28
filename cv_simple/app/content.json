@@ -3,7 +3,7 @@
     "name": "Nils Valseth Selte",
     "hero": {
       "paragraphs": [
-        "Software is eating the world - Marc Andreessen",
+        "Transformers are eating software.\nSoftware is eating the world - Marc Andreessen",
         "Industrial Economics & Technology Management student (NTNU '27, Berkeley Exchange '25) specializing in Artificial Intelligence and Finance.",
         "I like building things people find value in, talking to people about how software can help them, and working with highly ambitious and motivated teams."
       ]
@@ -25,6 +25,20 @@
   "timeline": {
     "sectionId": "updates",
     "items": [
+      {
+        "href": "/post/when-context-sticks",
+        "postSlug": "when-context-sticks",
+        "titleParts": [
+          {
+            "type": "text",
+            "value": "When context sticks"
+          }
+        ],
+        "description": "Writeup of preprint on interference and recovery in in-context learning.",
+        "date": "April 2026",
+        "badge": "Preprint",
+        "variant": "primary"
+      },
       {
         "href": "/post/norgesgruppen-shelf-system",
         "postSlug": "norgesgruppen-shelf-system",
@@ -54,20 +68,6 @@
         "variant": "plain"
       },
       {
-        "href": "/post/digital_mind",
-        "hrefEnv": "PAGE_URL",
-        "titleParts": [
-          {
-            "type": "text",
-            "value": "Cortex AI"
-          }
-        ],
-        "description": "Something very cool and useful is coming 🤫.",
-        "date": "Ongoing",
-        "badge": "Stealth Project",
-        "variant": "plain"
-      },
-      {
         "href": "/post/market_making_bot",
         "titleParts": [
           {
@@ -78,7 +78,7 @@
         "description": "Full-stack trading bot that streams order book data, simulates the book, quotes with a fixed spread strategy, and records trades in SQLite with a small REST and SSE API on top.",
         "date": "August 2025",
         "badge": "Project",
-        "variant": "muted"
+        "variant": "plain"
       },
       {
         "titleParts": [
@@ -102,7 +102,7 @@
         "description": "Exchange year focused on Deep Neural Networks and Optimization, plus a course project on in-context learning and how transformer models pick up new tasks from examples.",
         "date": "2025",
         "badge": "Education",
-        "variant": "plain"
+        "variant": "muted"
       },
       {
         "titleParts": [
@@ -165,15 +165,6 @@
       "linkHref": "mailto:nilsvselte@gmail.com",
       "linkHrefEnv": "NAV_CONTACT_LINK",
       "suffix": "."
-    }
-  },
-  "investors": {
-    "heading": "Expanded skill set:",
-    "body": {
-      "prefix": "Comfortable with linear algebra, probability, optimization, financial modeling, and modern software tooling in Python, PyTorch, pandas, FastAPI, Next.js, SQL, Docker, Linux, Git, and Zsh, plus",
-      "linkText": "a mix of student roles and case competitions",
-      "linkHref": "https://www.linkedin.com/in/nils-selte/?locale=en_US",
-      "suffix": "including work in the Abakus Academic Committee, a START NTNU case win, and side projects ranging from a small apparel venture in high school to the Atlantic crossing."
     }
   }
 }

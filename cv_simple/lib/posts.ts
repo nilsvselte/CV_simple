@@ -9,6 +9,7 @@ export type PostSection = {
 
 export type HeadingLinkIcon =
   | "paper"
+  | "arxiv"
   | "github"
   | "external"
   | "dog"

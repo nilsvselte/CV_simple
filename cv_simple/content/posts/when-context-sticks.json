@@ -1,0 +1,75 @@
+{
+  "layout": "context-sticks",
+  "title": "When context sticks",
+  "subtitle": "In-context learning research",
+  "description": "A plain-English writeup of a preprint studying how earlier examples in a prompt can interfere with a transformer's ability to adapt to a new task.",
+  "date": "April 2026",
+  "readingTime": "3 minute read",
+  "headingLinks": [
+    {
+      "label": "Paper",
+      "href": "https://arxiv.org/abs/2604.23371",
+      "icon": "arxiv"
+    },
+    {
+      "label": "Code",
+      "href": "https://github.com/nilsvselte/icl-context-stickiness",
+      "icon": "github"
+    }
+  ],
+  "intro": [
+    "In-context learning is an AI model's ability to adapt during inference. It helps explain modern LLMs adaptability and is theorized to be its main learning system after training is done.",
+    "However, with longer context windows another question became more central. If we give a model one task and then abruptly switch to another, what happens? Once the model has started using one pattern, how hard is it to adapt to the new one? Additionally how does training curriculum affect the models adaptability? This writeup tries to answer those questions in a controlled synthetic environment.",
+    "We train models on two different regression tasks and then abruptly switch the task the model has to solve during inference. In this way we can measure the impact of misleading context. "
+  ],
+  "stickinessSection": {
+    "heading": "",
+    "paragraphs": [],
+    "figure": {
+      "note": "We study context stickiness in in-context learning. During inference, the model first sees misleading linear examples, then the task switches to quadratic examples. We vary how much misleading context and recovery context appear before the query, and measure how prediction error changes.",
+      "caption": "Question: How much does earlier context keep influencing the model after the task has changed, and how quickly does the new pattern recover?"
+    }
+  },
+  "setupSection": {
+    "heading": "The experiment",
+    "paragraphs": [
+      "At inference time, we built prompts with a sudden task switch. In the linear-to-quadratic case, the prompt starts with linear examples, then switches to quadratic examples, then asks for a quadratic prediction. We also tested the reverse direction."
+    ]
+  },
+  "curriculumSection": {
+    "heading": "The training curricula",
+    "paragraphs": [
+      "We define the curricula as rules for choosing which function family generates each training batch at step t. Let F1 be the linear family and F2 be the quadratic family. Following common practice we start training on the simpler task in mixed and sequential curricula as this has been shown to increase performance.",
+      "The question here was whether this training schedule changes the inner-loop learner in the model."
+    ],
+    "figure": {
+      "caption": "The three curricula expose the model to the same task families with different ordering pressure: clean handoff, partial mixture, or fully shuffled training."
+    }
+  },
+  "findingsSection": {
+    "heading": "Results",
+    "paragraphs": [
+      "In the linear-to-quadratic sweep, error rises as the number of pre-switch linear examples increases and falls as more post-switch quadratic examples are added. This is the context-stickiness effect.",
+      "The recovery curves differ by curriculum. Sequential training recovers fastest, mixed training improves more gradually, and random training recovers the least once the initial linear context is long. Across curricula, the first few quadratic examples help the most; after that, each additional example gives smaller gains."
+    ],
+    "bullets": []
+  },
+  "whySection": {
+    "heading": "",
+    "paragraphs": []
+  },
+  "limitationsSection": {
+    "heading": "Limits and next steps",
+    "paragraphs": [
+      "The experiments used small self-trained transformers and simple two-dimensional function classes. That makes the setting easier to interpret, but it also means the numbers should not be read as forecasts for large production models.",
+      "A good next step would be to compare these curves against closed-form regression baselines, test more task families, and study mitigation strategies that explicitly tell the model when the task has changed."
+    ]
+  },
+  "closing": {
+    "label": "",
+    "text": ""
+  },
+  "seo": {
+    "index": false
+  }
+}
