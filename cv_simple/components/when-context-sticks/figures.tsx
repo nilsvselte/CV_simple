@@ -985,10 +985,11 @@ function ReferenceCurriculumTile({
 
 export function CurriculumEquations() {
   const ruleTextClasses = "text-[15px] leading-relaxed text-[#5c564d]";
+  const ruleSectionClasses = "space-y-2";
 
   return (
-    <div className="mr-auto my-7 max-w-4xl space-y-6">
-      <section className="space-y-2">
+    <div className="mr-auto my-7 max-w-4xl space-y-2">
+      <section className={ruleSectionClasses}>
         <h3 className="font-serif text-lg leading-snug text-[#1c1a16]">
           Sequential curriculum
         </h3>
@@ -999,7 +1000,7 @@ export function CurriculumEquations() {
         <NumberedEquation latex={sequentialCurriculumLatex} number={1} />
       </section>
 
-      <section className="space-y-2">
+      <section className={ruleSectionClasses}>
         <h3 className="font-serif text-lg leading-snug text-[#1c1a16]">
           Mixed curriculum
         </h3>
@@ -1011,7 +1012,7 @@ export function CurriculumEquations() {
         <NumberedEquation latex={mixedCurriculumLatex} number={2} />
       </section>
 
-      <section className="space-y-2">
+      <section className={ruleSectionClasses}>
         <h3 className="font-serif text-lg leading-snug text-[#1c1a16]">
           Random curriculum
         </h3>
@@ -1046,9 +1047,9 @@ function NumberedEquation({
     );
 
   return (
-    <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-6">
+    <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-2 sm:gap-6">
       <div
-        className="context-sticks-equation min-w-0 justify-self-start text-left"
+        className="context-sticks-equation min-w-0 max-w-full text-left"
         dangerouslySetInnerHTML={{ __html: equationHtml }}
       />
       <span className="justify-self-end text-[0.72em] not-italic text-black/35">

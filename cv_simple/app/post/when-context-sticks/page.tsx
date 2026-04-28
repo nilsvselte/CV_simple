@@ -283,7 +283,7 @@ export default async function WhenContextSticksPage() {
   const hasClosingText = post.closing.label || post.closing.text;
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen overflow-x-clip bg-background text-foreground">
       {articleStructuredData && (
         <script
           type="application/ld+json"

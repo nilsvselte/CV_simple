@@ -1,5 +1,15 @@
+.context-sticks-equation {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
 .context-sticks-equation .katex-display {
   margin: 0;
+  text-align: left;
+}
+
+.context-sticks-equation .katex-display > .katex {
   text-align: left;
 }
 
