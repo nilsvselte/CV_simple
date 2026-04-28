@@ -7,6 +7,11 @@
   "readingTime": "3 minute read",
   "headingLinks": [
     {
+      "label": "arXiv",
+      "href": "https://arxiv.org/abs/2604.23371",
+      "icon": "arxiv"
+    },
+    {
       "label": "Code",
       "href": "https://github.com/nilsvselte/icl-context-stickiness",
       "icon": "github"
