@@ -7,7 +7,7 @@
   "readingTime": "3 minute read",
   "headingLinks": [
     {
-      "label": "arXiv",
+      "label": "Paper",
       "href": "https://arxiv.org/abs/2604.23371",
       "icon": "arxiv"
     },
@@ -18,8 +18,9 @@
     }
   ],
   "intro": [
-    "In-context learning is an AI model's ability to adapt during inference. How much can it learn from the information in the user given prompt after training is finished?",
-    "If we give a model one task and then abruptly switch to another, what happens? Once the model has started using one pattern, how hard is it to adapt to the new one? Additionally how does training curriculum affect the models adaptability?"
+    "In-context learning is an AI model's ability to adapt during inference. It helps explain modern LLMs adaptability and is theorized to be its main learning system after training is done.",
+    "However, with longer context windows another question became more central. If we give a model one task and then abruptly switch to another, what happens? Once the model has started using one pattern, how hard is it to adapt to the new one? Additionally how does training curriculum affect the models adaptability? This writeup tries to answer those questions in a controlled synthetic environment.",
+    "We train models on two different regression tasks and then abruptly switch the task the model has to solve during inference. In this way we can measure the impact of misleading context. "
   ],
   "stickinessSection": {
     "heading": "",
@@ -32,14 +33,13 @@
   "setupSection": {
     "heading": "The experiment",
     "paragraphs": [
-      "We trained a small GPT-style transformer on synthetic regression tasks. One task family was linear, where the model had to infer a linear function from examples. The other was quadratic, where the model had to infer a quadratic function from examples.",
       "At inference time, we built prompts with a sudden task switch. In the linear-to-quadratic case, the prompt starts with linear examples, then switches to quadratic examples, then asks for a quadratic prediction. We also tested the reverse direction."
     ]
   },
   "curriculumSection": {
     "heading": "The training curricula",
     "paragraphs": [
-      "The paper defines the curricula as rules for choosing which function family generates each training batch at step t. Let F1 be the linear family and F2 be the quadratic family. Following common practice we start training on the simpler task in mixed and sequential curricula as this has been shown to increase performance.",
+      "We define the curricula as rules for choosing which function family generates each training batch at step t. Let F1 be the linear family and F2 be the quadratic family. Following common practice we start training on the simpler task in mixed and sequential curricula as this has been shown to increase performance.",
       "The question here was whether this training schedule changes the inner-loop learner in the model."
     ],
     "figure": {
